@@ -1,0 +1,178 @@
+<!-- Every rule that matters is an inline style: Odoo strips <style> blocks from
+     this file before serving it. Images are absolute jsDelivr URLs on an
+     immutable tag, because Odoo passes relative src through unchanged and they
+     404 for every visitor. Bump the tag when the images change. -->
+
+<section style="max-width:1100px;margin:0 auto;padding:8px 0 0;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#241E22;line-height:1.65">
+
+  <h2 style="font-size:32px;line-height:1.2;margin:0 0 14px;font-weight:700;letter-spacing:-.6px">
+    Shopify Odoo Connector: two-way sync for orders, products, customers, stock and fulfilment
+  </h2>
+
+  <p style="font-size:18px;color:#4A4247;margin:0 0 26px">
+    Connect a Shopify store to Odoo and keep both sides in step, on a schedule.
+    Import orders, products, customers and taxes; publish stock levels and
+    fulfilment tracking back. Built on Shopify's <strong>GraphQL Admin API</strong>,
+    which Shopify has required for new apps since October 2024 and is replacing
+    REST with, so this will not need rewriting when the REST endpoints finish
+    being withdrawn.
+  </p>
+
+  <div style="background:#FBF7F5;border:1px solid #E4D3CD;border-left:4px solid #8E4A3A;border-radius:10px;padding:18px 22px;margin:0 0 30px">
+    <p style="margin:0;font-size:17px">
+      <strong>The interesting part of a connector is not what it syncs, it is what
+      it refuses to guess.</strong> This one never imports an order twice, never
+      drops a tax it has no mapping for, never attaches a sale to a
+      nearly&#8209;matching variant, and never imports a total that disagrees with
+      what the customer actually paid.
+    </p>
+  </div>
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">What it syncs, and which way</h3>
+  <div class="table-responsive" style="margin:0 0 26px">
+    <table class="table" style="width:100%;border-collapse:collapse;font-size:16px">
+      <thead>
+        <tr style="background:#F6F3F4">
+          <th style="text-align:left;padding:11px 14px;border-bottom:2px solid #E7E2E4">Records</th>
+          <th style="text-align:left;padding:11px 14px;border-bottom:2px solid #E7E2E4">Direction</th>
+          <th style="text-align:left;padding:11px 14px;border-bottom:2px solid #E7E2E4">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid #EFEBEC"><strong>Orders</strong></td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Shopify to Odoo</td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">With line discounts, shipping lines and tax lines</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid #EFEBEC"><strong>Products and variants</strong></td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Either way, or both</td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Options become Odoo attributes; SKU and barcode carried across</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid #EFEBEC"><strong>Customers and addresses</strong></td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Either way, or both</td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Matched on exact email, country resolved by ISO code</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid #EFEBEC"><strong>Stock levels</strong></td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Odoo to Shopify</td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Available&#8209;to&#8209;promise or on hand, to a location you choose</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid #EFEBEC"><strong>Fulfilment and tracking</strong></td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">Odoo to Shopify</td>
+            <td style="padding:10px 14px;border-bottom:1px solid #EFEBEC">On delivery validation, on invoice posting, or whichever is first</td></tr>
+        <tr><td style="padding:10px 14px"><strong>Taxes</strong></td>
+            <td style="padding:10px 14px">Mapped by you</td>
+            <td style="padding:10px 14px">Anything unmapped stops and asks rather than under&#8209;billing</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">One store, every setting in one place</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    Connect with a Shopify custom app token, test the connection, and pull or push
+    anything on demand. Nothing moves until you say so: automatic confirmation,
+    invoicing, stock publishing, fulfilment and the scheduler all start switched off.
+  </p>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_connection.png"
+       alt="Shopify Odoo connector store settings in Odoo, with pull and push buttons for products, customers, orders and stock"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">You choose which way data travels</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    Products and customers can each run Shopify to Odoo, Odoo to Shopify, or both.
+    A push against a pull&#8209;only store is refused with a reason rather than done
+    quietly, because a direction is set precisely so the other way cannot happen by
+    accident.
+  </p>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_directions.png"
+       alt="Choosing sync direction per record type between Shopify and Odoo"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">Map any Shopify field to any Odoo field</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    Every business keeps things in different places, so the mapping is yours to
+    set, validated the moment you type it. Identity fields are deliberately not
+    mappable: repointing those would break duplicate prevention, which everything
+    else rests on.
+  </p>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_fieldmap.png"
+       alt="Shopify to Odoo field mapping table, editable per store"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">Runs on a schedule, or right now</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    A scheduled sync per store, with its own interval and its own choice of what to
+    sync. A store already syncing is never started a second time on top of itself.
+    When something is urgent there is a manual pull and push for every task.
+  </p>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_schedule.png"
+       alt="Scheduled Shopify to Odoo sync settings with interval and per-record toggles"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">Stock and fulfilment, back to the storefront</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    Publish available&#8209;to&#8209;promise rather than on hand, so the same unit is not
+    sold twice. Send fulfilments with the tracking number when the delivery is
+    validated, or when the invoice is posted for businesses that never run
+    Inventory. Shopify's shipping email to the customer stays off until you switch
+    it on.
+  </p>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_stock.png"
+       alt="Publishing Odoo stock levels to a Shopify location and sending fulfilment tracking"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">When something fails, you are told what to fix</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    Every unit of work is a row that keeps the exact payload that caused it, so a
+    retry replays the failure without asking Shopify for the data again. Failures
+    split into the two kinds that need different things from you:
+  </p>
+  <ul style="font-size:17px;color:#4A4247;margin:0 0 16px;padding-left:22px">
+    <li style="margin-bottom:8px"><strong>Failed</strong> is transient, a dropped
+      connection or a rate limit. The scheduler retries it, backing off further
+      each time.</li>
+    <li style="margin-bottom:8px"><strong>Needs attention</strong> means something
+      has to change first: a tax with no mapping, a product not in Odoo, an expired
+      token. These are never retried on a timer, because a timer cannot fix them,
+      and each one carries the sentence saying what to do.</li>
+  </ul>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_jobs.png"
+       alt="Shopify sync job dashboard in Odoo showing done, failed and needs-attention jobs with what to do about each"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">Never a silent under&#8209;billing</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 14px">
+    Shopify calculates tax its own way. Rather than guess, every tax Shopify sends
+    is listed the first time it appears and matched to a real Odoo tax by your
+    accountant. Anything unmapped stops the order instead of producing an invoice
+    quietly short by the tax, which nobody notices until a return is filed.
+  </p>
+  <img src="https://cdn.jsdelivr.net/gh/pratzs/miko-shopify-odoo@assets-1.0.0/miko_shopify/static/description/screenshot_taxes.png"
+       alt="Mapping Shopify tax lines to Odoo taxes so no imported invoice is short"
+       class="img-fluid" style="max-width:100%;height:auto;border:1px solid #E7E2E4;border-radius:10px;margin:0 0 30px">
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">Requirements</h3>
+  <ul style="font-size:17px;color:#4A4247;margin:0 0 22px;padding-left:22px">
+    <li style="margin-bottom:6px">Odoo 16, 17, 18 or 19, Community or Enterprise.</li>
+    <li style="margin-bottom:6px">The free <strong>E&#8209;Commerce Connector Engine (Miko)</strong>
+      module, which provides the identity mapping and job queue underneath this.</li>
+    <li style="margin-bottom:6px">A Shopify custom app token with read and write access to
+      products, customers, orders, inventory and locations.
+      <strong>read_customers is required even if you only import orders</strong>,
+      because an order carries its customer.</li>
+    <li style="margin-bottom:6px">Odoo Online cannot run modules containing Python, so this
+      needs Odoo.sh or a self&#8209;hosted install.</li>
+  </ul>
+
+  <h3 style="font-size:24px;margin:34px 0 10px;font-weight:700">Tested, not assumed</h3>
+  <p style="font-size:17px;color:#4A4247;margin:0 0 8px">
+    86 automated tests run against real Odoo 16, 17, 18 and 19 on every release,
+    and every Shopify call in the module was executed against a live Shopify
+    development store on API version 2025&#8209;07 rather than only against mocks.
+  </p>
+
+  <p style="font-size:16px;color:#6E6469;margin:30px 0 8px">
+    Support: <a href="mailto:support@tripsterdevelopers.com" style="color:#8E4A3A">support@tripsterdevelopers.com</a>
+    &nbsp;&middot;&nbsp; Built by Tripster Developers
+  </p>
+  <p style="font-size:13px;color:#9A9296;margin:0 0 20px">
+    Shopify is a trademark of Shopify Inc. Odoo is a trademark of Odoo S.A. This
+    module is not affiliated with, endorsed by, or sponsored by either company; the
+    names and logos are used only to say what it connects.
+  </p>
+
+</section>

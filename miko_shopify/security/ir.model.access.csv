@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_miko_shopify_tax_user,miko.shopify.tax user,model_miko_shopify_tax,sales_team.group_sale_salesman,1,0,0,0
+access_miko_shopify_tax_manager,miko.shopify.tax manager,model_miko_shopify_tax,sales_team.group_sale_manager,1,1,1,1
+access_miko_shopify_field_map_user,miko.shopify.field.map user,model_miko_shopify_field_map,sales_team.group_sale_salesman,1,0,0,0
+access_miko_shopify_field_map_manager,miko.shopify.field.map manager,model_miko_shopify_field_map,sales_team.group_sale_manager,1,1,1,1

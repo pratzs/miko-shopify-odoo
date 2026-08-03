@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Shopify settings, added to the store form the engine provides. -->
+    <record id="view_channel_form_shopify" model="ir.ui.view">
+        <field name="name">miko.ecommerce.channel.form.shopify</field>
+        <field name="model">miko.ecommerce.channel</field>
+        <field name="inherit_id" ref="miko_ecommerce_core.view_channel_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Shopify" name="shopify">
+                        <group>
+                            <group string="Connection">
+                                <field name="shopify_domain" placeholder="example.myshopify.com"/>
+                                <field name="shopify_token" password="True"/>
+                                <field name="shopify_api_version"/>
+                            </group>
+                            <group string="Status">
+                                <field name="connection_state"/>
+                                <field name="shopify_shop_name"/>
+                                <field name="shopify_currency"/>
+                                <field name="connection_message"/>
+                            </group>
+                        </group>
+                        <group string="How imports behave">
+                            <field name="create_missing_products"/>
+                            <field name="unmapped_tax_policy"/>
+                        </group>
+                        <div class="text-muted">
+                            Create the token in Shopify under Settings, Apps and
+                            sales channels, Develop apps. The app needs read access
+                            to products, customers and orders. Shopify shows the
+                            token once, when the app is installed.
+                        </div>
+                    </page>
+
+                    <page string="Directions" name="shopify_directions">
+                        <div class="text-muted mb-2">
+                            Which way each kind of record travels. Orders are
+                            always Shopify to Odoo, because that is where they are
+                            placed. A push in the wrong direction is refused
+                            rather than done quietly.
+                        </div>
+                        <group>
+                            <group string="Data">
+                                <field name="product_direction"/>
+                                <field name="customer_direction"/>
+                            </group>
+                            <group string="Fulfilment">
+                                <field name="fulfil_trigger"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <page string="Field mapping" name="shopify_fields">
+                        <div class="text-muted mb-2">
+                            Which Shopify field lands in which Odoo field. Identity
+                            fields are deliberately absent: repointing those would
+                            break duplicate prevention, which everything else rests
+                            on. Switch a row off rather than deleting it.
+                        </div>
+                        <button name="action_seed_field_maps" type="object"
+                                string="Load default mappings" class="btn-secondary mb-2"/>
+                        <field name="field_map_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="entity"/>
+                                <field name="direction"/>
+                                <field name="shopify_field"/>
+                                <field name="odoo_field"/>
+                                <field name="active" widget="boolean_toggle"/>
+                                <field name="note" optional="hide"/>
+                            </list>
+                        </field>
+                    </page>
+
+                    <page string="Scheduled sync" name="shopify_sync">
+                        <div class="text-muted mb-2">
+                            Nothing runs on a schedule until this is switched on.
+                            The scheduler wakes every 15 minutes and skips stores
+                            that are not due yet.
+                        </div>
+                        <group>
+                            <group string="When">
+                                <field name="auto_sync"/>
+                                <field name="sync_interval_minutes"/>
+                                <field name="last_sync"/>
+                                <field name="sync_running"/>
+                            </group>
+                            <group string="What">
+                                <field name="sync_orders"/>
+                                <field name="sync_products"/>
+                                <field name="sync_customers"/>
+                            </group>
+                        </group>
+                        <field name="last_sync_message" readonly="1"/>
+                    </page>
+
+                    <page string="Stock and fulfilment" name="shopify_out">
+                        <div class="text-muted mb-2">
+                            Both of these write into the live storefront, so both
+                            start switched off.
+                        </div>
+                        <group>
+                            <group string="Stock to Shopify">
+                                <field name="export_stock"/>
+                                <field name="stock_source"/>
+                                <field name="shopify_location_name" readonly="1"/>
+                                <field name="shopify_location_id" readonly="1"/>
+                            </group>
+                            <group string="Fulfilment to Shopify">
+                                <field name="export_fulfilments"/>
+                                <field name="notify_customer_on_fulfilment"/>
+                            </group>
+                        </group>
+                        <div class="text-muted">
+                            Fulfilments are sent when the Odoo delivery is
+                            validated, which is when the goods actually left, and
+                            carry the tracking number if one is set.
+                        </div>
+                    </page>
+
+                    <page string="Taxes" name="shopify_taxes">
+                        <div class="text-muted mb-2">
+                            Every tax Shopify sends is listed here the first time it
+                            is seen. A row with no Odoo tax set will stop imports
+                            rather than produce an invoice missing that tax.
+                        </div>
+                        <field name="shopify_tax_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="title" readonly="1"/>
+                                <field name="rate_percent" readonly="1"/>
+                                <field name="tax_id"/>
+                                <field name="order_count" readonly="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_test_connection" type="object"
+                            string="Test Connection" class="btn-primary"/>
+                    <button name="action_sync_now" type="object" string="Sync Now"/>
+                    <span class="mx-2 text-muted">Pull</span>
+                    <button name="action_import_products" type="object"
+                            string="Products"/>
+                    <button name="action_import_customers" type="object"
+                            string="Customers"/>
+                    <button name="action_import_orders" type="object"
+                            string="Orders"/>
+                    <span class="mx-2 text-muted">Push</span>
+                    <button name="action_export_products" type="object"
+                            string="Products"/>
+                    <button name="action_export_customers" type="object"
+                            string="Customers"/>
+                    <button name="action_export_stock" type="object"
+                            string="Stock"/>
+                    <button name="action_fetch_shopify_locations" type="object"
+                            string="Locations"/>
+                </header>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- The tax mapping in its own right, for the accountant rather than the
+         person configuring the store. -->
+    <record id="view_shopify_tax_list" model="ir.ui.view">
+        <field name="name">miko.shopify.tax.list</field>
+        <field name="model">miko.shopify.tax</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="channel_id"/>
+                <field name="title"/>
+                <field name="rate_percent"/>
+                <field name="tax_id"/>
+                <field name="order_count"/>
+                <field name="first_seen"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_shopify_tax" model="ir.actions.act_window">
+        <field name="name">Shopify Taxes</field>
+        <field name="res_model">miko.shopify.tax</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiley_face">Nothing to map yet.</p>
+            <p>Taxes appear here the first time an imported order carries them.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_shopify_tax"
+              name="Shopify Taxes"
+              parent="miko_ecommerce_core.menu_ecommerce_root"
+              action="action_shopify_tax"
+              sequence="30"/>
+
+    <!-- The orders list gains the two facts that matter after an import. -->
+    <record id="view_order_list_shopify" model="ir.ui.view">
+        <field name="name">sale.order.list.shopify</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="shopify_order_name" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
