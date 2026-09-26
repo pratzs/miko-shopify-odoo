@@ -19,7 +19,7 @@ it checks every imported order against the total Shopify actually charged, leavi
 anything that disagrees as a quotation with the difference spelled out.
 """,
     'author': 'Tripster Developers',
-    'website': 'https://tripsterdevelopers.com/odoo/',
+    'website': 'https://miko.co.nz/odoo/shopify-connector',
     'category': 'eCommerce',
     'license': 'OPL-1',
     'depends': ['miko_ecommerce_core', 'sale_management', 'stock', 'account'],
