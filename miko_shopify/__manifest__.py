@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Shopify Odoo Connector: Orders, Stock, Fulfilment Sync (Miko)',
-    'version': '19.0.1.0.0',
-    'summary': 'Two-way Shopify Odoo sync on a schedule: import orders, products '
-               'and customers, publish stock and fulfilment tracking',
+    'name': '2-Way Shopify Odoo Connector: Orders, Stock, Fulfilment (Miko)',
+    'version': '19.0.1.0.1',
+    'summary': 'Two-way Shopify Odoo connector (Odoo Shopify connector) for Shopify integration and scheduled Shopify sync: import orders, products and customers, publish stock and fulfilment tracking',
     'description': """
 Connect a Shopify store to Odoo and keep the two in step.
 
